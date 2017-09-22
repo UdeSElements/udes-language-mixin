@@ -1,4 +1,5 @@
 # UdeS.LanguageMixin
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/UdeSElements/udes-language-mixin)
 A simple mixin to be aware of the current language application.
 
 The `language` property is computed from supported languages and
