@@ -1,0 +1,238 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<script>
+  window.UdeS = window.UdeS || {};
+
+  /**
+   * Global language object with the properties that you may want
+   * to override inside your index.html.
+   *
+   * Outside the first override, don't update the `UdeS.Language`
+   * object as it may produce inconsistent results.
+   *
+   * The default language is French, which is the primary language at
+   * Université de Sherbrooke (UdeS).
+   *
+   * @public
+   */
+  UdeS.Language = UdeS.Language || {
+    defaultLanguage: 'fr',
+    supportedLanguages: ['fr'],
+  };
+
+  /**
+   * UdeS language mixin.
+   *
+   * A simple mixin to be aware of the current language application.
+   *
+   * The `language` property is computed from supported languages and
+   * from the browser languages.
+   *
+   * It implements the observer pattern. You should call the
+   * `updateLanguage` function if you want to update the language
+   * of all observers.
+   *
+   * If you want also to load some localized files, you should take
+   * a look on `UdeS.LocalizeMixin` instead.
+   *
+   * @memberOf UdeS
+   * @polymer
+   * @polymerMixin
+   * @param {Class} superClass The super class.
+   * @return {Class} Class.
+   */
+  UdeS.LanguageMixin = (superClass) => class extends superClass {
+    /**
+     * Return the properties.
+     * @static
+     * @return {Object} Properties.
+     */
+    static get properties() {
+      return {
+        /**
+         * Default language.
+         * @public
+         */
+        defaultLanguage: {
+          type: String,
+          readOnly: true,
+        },
+
+        /**
+         * Current language.
+         * @public
+         */
+        language: {
+          type: String,
+          readOnly: true,
+        },
+
+        /**
+         * Navigator language.
+         * @public
+         */
+        navigatorLanguage: {
+          type: String,
+          readOnly: true,
+        },
+
+        /**
+         * Navigator languages.
+         * @public
+         */
+        navigatorLanguages: {
+          type: String,
+          readOnly: true,
+        },
+
+        /**
+         * Supported languages.
+         * @public
+         */
+        supportedLanguages: {
+          type: String,
+          readOnly: true,
+        },
+      };
+    }
+
+    /**
+     * Add the element to the observer elements.
+     * @protected
+     */
+    ready() {
+      super.ready();
+
+      // Make sure the observers property is created
+      if (!UdeS.Language._observers) {
+        UdeS.Language._observers = [];
+      }
+
+      UdeS.Language._observers.push(this);
+
+      // Check if the global navigator languages are initialised
+      const isInitialised = UdeS.Language.navigatorLanguage
+        && UdeS.Language.navigatorLanguages;
+      if (!isInitialised) {
+        this.__initGlobalLanguageVariables();
+      }
+
+      // Set the read-only properties with the global variables
+      this.setProperties({
+        defaultLanguage: UdeS.Language.defaultLanguage,
+        language: UdeS.Language.language,
+        navigatorLanguage: UdeS.Language.navigatorLanguage,
+        navigatorLanguages: UdeS.Language.navigatorLanguages,
+        supportedLanguages: UdeS.Language.supportedLanguages,
+      }, true);
+    }
+
+    /**
+     * Remove the element from the observer elements.
+     * @protected
+     */
+    disconnectedCallback() {
+      super.disconnectedCallback();
+
+      const index = UdeS.Language._observers.indexOf(this);
+      if (index !== -1) {
+        UdeS.Language._observers.splice(index, 1);
+      }
+    }
+
+    /**
+     * Update the language for all observer elements.
+     * @param {String} language Language.
+     * @public
+     */
+    updateLanguage(language) {
+      UdeS.Language.language = language;
+      UdeS.Language._observers.forEach((element) => {
+        element.language = language;
+      });
+    }
+
+    /**
+     * Initialise the global languages variables.
+     * @private
+     */
+    __initGlobalLanguageVariables() {
+      const defaultLanguage = UdeS.Language.defaultLanguage;
+      const supportedLanguages = UdeS.Language.supportedLanguages;
+
+      // Retrieve the navigator language
+      // @see http://gu.illau.me/posts/the-problem-of-user-language-lists-in-javascript/
+      // @see https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/language
+      const navigatorLanguage = navigator.language
+        || navigator.userLanguage
+        || navigator.browserLanguage
+        || navigator.systemLanguage
+        || defaultLanguage;
+
+      // Retrieve the navigator languages
+      // (with a fallback if the navigator.languages is not defined)
+      // @see https://developer.mozilla.org/fr/docs/Web/API/NavigatorLanguage/languages
+      let navigatorLanguages = [navigatorLanguage];
+      if (navigator.languages && navigator.languages.length) {
+        navigatorLanguages = navigator.languages;
+      }
+
+      // Compute the global variables
+      const globalLanguages = this.__computeGlobalLanguageVariables(
+        defaultLanguage, supportedLanguages,
+        navigatorLanguage, navigatorLanguages
+      );
+
+      // Update the global variables
+      UdeS.Language.language = globalLanguages.language;
+      UdeS.Language.navigatorLanguage = globalLanguages.navigatorLanguage;
+      UdeS.Language.navigatorLanguages = globalLanguages.navigatorLanguages;
+    }
+
+    /**
+     * Compute the global languages variables.
+     * @param {String} defaultLanguage Default language.
+     * @param {Array<String>} supportedLanguages Supported languages.
+     * @param {String} navigatorLanguage Navigator language.
+     * @param {Array<String>} navigatorLanguages Navigator languages.
+     * @return {{language: String, navigatorLanguage: String,
+     *           navigatorLanguages: Array<String>}}
+     * @private
+     */
+    __computeGlobalLanguageVariables(defaultLanguage, supportedLanguages,
+                                     navigatorLanguage, navigatorLanguages) {
+      let language = defaultLanguage;
+
+      // Array that will contains all base languages
+      let baseLanguages = [];
+      navigatorLanguages.forEach((navigatorLanguage) => {
+        const index = navigatorLanguage.indexOf('-');
+        if (index !== -1) {
+          baseLanguages.push(navigatorLanguage.substring(0, index));
+        }
+      });
+
+      // Add the base at the end of the navigator languages
+      navigatorLanguages = [...navigatorLanguages, ...baseLanguages];
+
+      // Make sure that the new navigator languages are unique
+      navigatorLanguages = navigatorLanguages.filter(
+        (item, pos, self) => self.indexOf(item) === pos
+      );
+
+      // Return the first available language supported
+      for (let i = 0; i < navigatorLanguages.length; ++i) {
+        if (supportedLanguages.indexOf(navigatorLanguages[i]) !== -1) {
+          language = navigatorLanguages[i];
+          break;
+        }
+      }
+
+      return {
+        language: language,
+        navigatorLanguage: navigatorLanguage,
+        navigatorLanguages: navigatorLanguages,
+      };
+    }
+  };
+</script>

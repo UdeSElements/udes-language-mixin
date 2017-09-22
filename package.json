@@ -1,0 +1,30 @@
+{
+  "name": "udes-language-mixin",
+  "version": "2.1.0",
+  "description": "A simple mixin to be aware of the current language application",
+  "author": "Université de Sherbrooke",
+  "license": "MIT",
+  "keywords": [
+    "language",
+    "navigator",
+    "polymer",
+    "udes",
+    "webcomponents"
+  ],
+  "devDependencies": {
+    "eslint-config-udes": "^0.1.2",
+    "pre-commit": "^1.1.3"
+  },
+  "scripts": {
+    "format": "npm run format:js && npm run format:json",
+    "format:js": "eslint . --ext js,html --ignore-path .gitignore --fix",
+    "format:json": "eslint . --ext .json --ignore-path .gitignore --fix",
+    "lint": "npm run lint:js && npm run lint:json && npm run lint:polymer",
+    "lint:js": "eslint . --ext js,html --ignore-path .gitignore",
+    "lint:json": "eslint . --ext .json --ignore-path .gitignore",
+    "lint:polymer": "polymer lint"
+  },
+  "pre-commit": [
+    "lint"
+  ]
+}
