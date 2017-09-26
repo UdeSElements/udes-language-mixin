@@ -1,6 +1,9 @@
 <link rel="import" href="../polymer/polymer-element.html">
 
 <script>
+  /**
+   * @namespace UdeS
+   */
   window.UdeS = window.UdeS || {};
 
   /**
@@ -11,9 +14,10 @@
    * object as it may produce inconsistent results.
    *
    * The default language is French, which is the primary language at
-   * Université de Sherbrooke (UdeS).
+   * `Université de Sherbrooke` (UdeS).
    *
    * @public
+   * @memberOf UdeS
    */
   UdeS.Language = UdeS.Language || {
     defaultLanguage: 'fr',
@@ -30,14 +34,19 @@
    *
    * It implements the observer pattern. You should call the
    * `updateLanguage` function if you want to update the language
-   * of all observers.
+   * of all observers. When the language is changed, the lang attribute of html
+   * element is update automatically.
+   *
+   * ```html
+   * <html lang="en"></html>
+   * ```
    *
    * If you want also to load some localized files, you should take
-   * a look on `UdeS.LocalizeMixin` instead.
+   * a look on `UdeS.LocalizeMixin` instead (not published yet).
    *
    * @memberOf UdeS
    * @polymer
-   * @polymerMixin
+   * @mixinFunction
    * @param {Class} superClass The super class.
    * @return {Class} Class.
    */
@@ -54,8 +63,8 @@
          * @public
          */
         defaultLanguage: {
-          type: String,
           readOnly: true,
+          type: String,
         },
 
         /**
@@ -63,8 +72,8 @@
          * @public
          */
         language: {
-          type: String,
           readOnly: true,
+          type: String,
         },
 
         /**
@@ -72,8 +81,8 @@
          * @public
          */
         navigatorLanguage: {
-          type: String,
           readOnly: true,
+          type: String,
         },
 
         /**
@@ -81,8 +90,8 @@
          * @public
          */
         navigatorLanguages: {
-          type: String,
           readOnly: true,
+          type: String,
         },
 
         /**
@@ -90,8 +99,8 @@
          * @public
          */
         supportedLanguages: {
-          type: String,
           readOnly: true,
+          type: String,
         },
       };
     }
@@ -146,10 +155,26 @@
      * @public
      */
     updateLanguage(language) {
+      // Update the global current language
       UdeS.Language.language = language;
+
+      // Update the lang attribute of html element with the ISO 639-1 abbreviation
+      this._updateLangAttributeOfHtml(language);
+
+      // Notify all observers
       UdeS.Language._observers.forEach((element) => {
         element.language = language;
       });
+    }
+
+    /**
+     * Update the lang attribute of html element with the ISO 639-1 abbreviation.
+     * @param {String} language Language.
+     * @protected
+     */
+    _updateLangAttributeOfHtml(language) {
+      const html = document.getElementsByTagName('html')[0];
+      html.setAttribute('lang', language.substring(0, 2));
     }
 
     /**
@@ -187,6 +212,9 @@
       UdeS.Language.language = globalLanguages.language;
       UdeS.Language.navigatorLanguage = globalLanguages.navigatorLanguage;
       UdeS.Language.navigatorLanguages = globalLanguages.navigatorLanguages;
+
+      // Set or update the lang attribute of the html element
+      this._updateLangAttributeOfHtml(UdeS.Language.language);
     }
 
     /**
