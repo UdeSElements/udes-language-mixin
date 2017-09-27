@@ -1,0 +1,51 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../udes-language-mixin.html">
+
+<dom-module id="udes-language-demo">
+  <template>
+    <style>
+      .bold {
+        font-weight: bold;
+      }
+    </style>
+
+    <ul>
+      <li>
+        <span class="bold">defaultLanguage</span>: [[defaultLanguage]]
+      </li>
+      <li>
+        <span class="bold">language</span>: [[language]]
+      </li>
+      <li>
+        <span class="bold">navigatorLanguage</span>: [[navigatorLanguage]]
+      </li>
+      <li>
+        <span class="bold">navigatorLanguages</span>: [[navigatorLanguages]]
+      </li>
+      <li>
+        <span class="bold">supportedLanguages</span>: [[supportedLanguages]]
+      </li>
+    </ul>
+  </template>
+  <script>
+    /**
+     * @polymer
+     * @customElement
+     * @demo
+     * @extends {Polymer.Element}
+     * @appliesMixin UdeS.LanguageMixin
+     */
+    class UdeSLanguageDemo extends UdeS.LanguageMixin(Polymer.Element) {
+      /**
+       * Return the HTML tag.
+       * @static
+       * @return {String} HTML tag.
+       */
+      static get is() {
+        return 'udes-language-demo';
+      }
+    }
+
+    window.customElements.define(UdeSLanguageDemo.is, UdeSLanguageDemo);
+  </script>
+</dom-module>

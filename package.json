@@ -1,11 +1,13 @@
 {
   "name": "udes-language-mixin",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A simple mixin to be aware of the current language application",
   "author": "Université de Sherbrooke",
   "license": "MIT",
   "keywords": [
+    "i18n",
     "language",
+    "mixin",
     "navigator",
     "polymer",
     "udes",
