@@ -155,6 +155,9 @@
      * @public
      */
     updateLanguage(language) {
+      // Update the appellant in the case it is not yet in observers
+      this.language = language;
+
       // Update the global current language
       UdeS.Language.language = language;
 
