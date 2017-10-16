@@ -2,6 +2,10 @@
   "name": "udes-language-mixin",
   "description": "UdeS language mixin.",
   "main": "udes-language-mixin.html",
+  "license": "MIT",
+  "authors": [
+    "Université de Sherbrooke"
+  ],
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0"
   },

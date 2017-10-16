@@ -158,12 +158,15 @@
       // Update the global current language
       UdeS.Language.language = language;
 
+      // Update the appellant in the case it is not yet in observers
+      this.setProperties({language: language}, true);
+
       // Update the lang attribute of html element with the ISO 639-1 abbreviation
       this._updateLangAttributeOfHtml(language);
 
       // Notify all observers
       UdeS.Language._observers.forEach((element) => {
-        element.language = language;
+        element.setProperties({language: language}, true);
       });
     }
 
