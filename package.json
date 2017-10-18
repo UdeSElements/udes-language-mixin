@@ -1,6 +1,6 @@
 {
-  "name": "udes-language-mixin",
-  "version": "2.2.1",
+  "name": "@udes/language-mixin",
+  "version": "2.2.2",
   "description": "A simple mixin to be aware of the current language application",
   "author": "Université de Sherbrooke",
   "license": "MIT",
