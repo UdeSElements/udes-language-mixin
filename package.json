@@ -1,5 +1,5 @@
 {
-  "name": "@udes/language-mixin",
+  "name": "@udeselements/language-mixin",
   "version": "2.2.2",
   "description": "A simple mixin to be aware of the current language application",
   "author": "Université de Sherbrooke",

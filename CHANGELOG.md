@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ## [2.2.2] - 2017-10-18
 ### Added
-- Release the mixin to npm under the name @udes/language-mixin.
+- Release the mixin to npm under the name @udeselements/language-mixin.
 
 ## [2.2.1] - 2017-10-16
 ### Changed
