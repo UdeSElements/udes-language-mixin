@@ -4,7 +4,7 @@
   /**
    * @namespace UdeS
    */
-  window.UdeS = window.UdeS || {};
+  window.UdeS = window.UdeS || {}
 
   /**
    * Global language object with the properties that you may want
@@ -22,7 +22,7 @@
   UdeS.Language = UdeS.Language || {
     defaultLanguage: 'fr',
     supportedLanguages: ['fr'],
-  };
+  }
 
   /**
    * UdeS language mixin.
@@ -56,7 +56,7 @@
      * @static
      * @return {Object} Properties.
      */
-    static get properties() {
+    static get properties () {
       return {
         /**
          * Default language.
@@ -102,28 +102,28 @@
           readOnly: true,
           type: String,
         },
-      };
+      }
     }
 
     /**
      * Add the element to the observer elements.
      * @protected
      */
-    ready() {
-      super.ready();
+    ready () {
+      super.ready()
 
       // Make sure the observers property is created
       if (!UdeS.Language._observers) {
-        UdeS.Language._observers = [];
+        UdeS.Language._observers = []
       }
 
-      UdeS.Language._observers.push(this);
+      UdeS.Language._observers.push(this)
 
       // Check if the global navigator languages are initialised
-      const isInitialised = UdeS.Language.navigatorLanguage
-        && UdeS.Language.navigatorLanguages;
+      const isInitialised = UdeS.Language.navigatorLanguage &&
+        UdeS.Language.navigatorLanguages
       if (!isInitialised) {
-        this.__initGlobalLanguageVariables();
+        this.__initGlobalLanguageVariables()
       }
 
       // Set the read-only properties with the global variables
@@ -133,19 +133,19 @@
         navigatorLanguage: UdeS.Language.navigatorLanguage,
         navigatorLanguages: UdeS.Language.navigatorLanguages,
         supportedLanguages: UdeS.Language.supportedLanguages,
-      }, true);
+      }, true)
     }
 
     /**
      * Remove the element from the observer elements.
      * @protected
      */
-    disconnectedCallback() {
-      super.disconnectedCallback();
+    disconnectedCallback () {
+      super.disconnectedCallback()
 
-      const index = UdeS.Language._observers.indexOf(this);
+      const index = UdeS.Language._observers.indexOf(this)
       if (index !== -1) {
-        UdeS.Language._observers.splice(index, 1);
+        UdeS.Language._observers.splice(index, 1)
       }
     }
 
@@ -154,20 +154,20 @@
      * @param {String} language Language.
      * @public
      */
-    updateLanguage(language) {
+    updateLanguage (language) {
       // Update the global current language
-      UdeS.Language.language = language;
+      UdeS.Language.language = language
 
       // Update the appellant in the case it is not yet in observers
-      this.setProperties({language: language}, true);
+      this.setProperties({language: language}, true)
 
       // Update the lang attribute of html element with the ISO 639-1 abbreviation
-      this._updateLangAttributeOfHtml(language);
+      this._updateLangAttributeOfHtml(language)
 
       // Notify all observers
       UdeS.Language._observers.forEach((element) => {
-        element.setProperties({language: language}, true);
-      });
+        element.setProperties({language: language}, true)
+      })
     }
 
     /**
@@ -175,49 +175,49 @@
      * @param {String} language Language.
      * @protected
      */
-    _updateLangAttributeOfHtml(language) {
-      const html = document.getElementsByTagName('html')[0];
-      html.setAttribute('lang', language.substring(0, 2));
+    _updateLangAttributeOfHtml (language) {
+      const html = document.getElementsByTagName('html')[0]
+      html.setAttribute('lang', language.substring(0, 2))
     }
 
     /**
      * Initialise the global languages variables.
      * @private
      */
-    __initGlobalLanguageVariables() {
-      const defaultLanguage = UdeS.Language.defaultLanguage;
-      const supportedLanguages = UdeS.Language.supportedLanguages;
+    __initGlobalLanguageVariables () {
+      const defaultLanguage = UdeS.Language.defaultLanguage
+      const supportedLanguages = UdeS.Language.supportedLanguages
 
       // Retrieve the navigator language
       // @see http://gu.illau.me/posts/the-problem-of-user-language-lists-in-javascript/
       // @see https://developer.mozilla.org/en-US/docs/Web/API/NavigatorLanguage/language
-      const navigatorLanguage = navigator.language
-        || navigator.userLanguage
-        || navigator.browserLanguage
-        || navigator.systemLanguage
-        || defaultLanguage;
+      const navigatorLanguage = navigator.language ||
+        navigator.userLanguage ||
+        navigator.browserLanguage ||
+        navigator.systemLanguage ||
+        defaultLanguage
 
       // Retrieve the navigator languages
       // (with a fallback if the navigator.languages is not defined)
       // @see https://developer.mozilla.org/fr/docs/Web/API/NavigatorLanguage/languages
-      let navigatorLanguages = [navigatorLanguage];
+      let navigatorLanguages = [navigatorLanguage]
       if (navigator.languages && navigator.languages.length) {
-        navigatorLanguages = navigator.languages;
+        navigatorLanguages = navigator.languages
       }
 
       // Compute the global variables
       const globalLanguages = this.__computeGlobalLanguageVariables(
         defaultLanguage, supportedLanguages,
         navigatorLanguage, navigatorLanguages
-      );
+      )
 
       // Update the global variables
-      UdeS.Language.language = globalLanguages.language;
-      UdeS.Language.navigatorLanguage = globalLanguages.navigatorLanguage;
-      UdeS.Language.navigatorLanguages = globalLanguages.navigatorLanguages;
+      UdeS.Language.language = globalLanguages.language
+      UdeS.Language.navigatorLanguage = globalLanguages.navigatorLanguage
+      UdeS.Language.navigatorLanguages = globalLanguages.navigatorLanguages
 
       // Set or update the lang attribute of the html element
-      this._updateLangAttributeOfHtml(UdeS.Language.language);
+      this._updateLangAttributeOfHtml(UdeS.Language.language)
     }
 
     /**
@@ -226,36 +226,35 @@
      * @param {Array<String>} supportedLanguages Supported languages.
      * @param {String} navigatorLanguage Navigator language.
      * @param {Array<String>} navigatorLanguages Navigator languages.
-     * @return {{language: String, navigatorLanguage: String,
-     *           navigatorLanguages: Array<String>}}
+     * @return {{language: String, navigatorLanguage: String, navigatorLanguages: Array<String>}} Global languages variables.
      * @private
      */
-    __computeGlobalLanguageVariables(defaultLanguage, supportedLanguages,
-                                     navigatorLanguage, navigatorLanguages) {
-      let language = defaultLanguage;
+    __computeGlobalLanguageVariables (defaultLanguage, supportedLanguages,
+      navigatorLanguage, navigatorLanguages) {
+      let language = defaultLanguage
 
       // Array that will contains all base languages
-      let baseLanguages = [];
+      let baseLanguages = []
       navigatorLanguages.forEach((navigatorLanguage) => {
-        const index = navigatorLanguage.indexOf('-');
+        const index = navigatorLanguage.indexOf('-')
         if (index !== -1) {
-          baseLanguages.push(navigatorLanguage.substring(0, index));
+          baseLanguages.push(navigatorLanguage.substring(0, index))
         }
-      });
+      })
 
       // Add the base at the end of the navigator languages
-      navigatorLanguages = [...navigatorLanguages, ...baseLanguages];
+      navigatorLanguages = [...navigatorLanguages, ...baseLanguages]
 
       // Make sure that the new navigator languages are unique
       navigatorLanguages = navigatorLanguages.filter(
         (item, pos, self) => self.indexOf(item) === pos
-      );
+      )
 
       // Return the first available language supported
       for (let i = 0; i < navigatorLanguages.length; ++i) {
         if (supportedLanguages.indexOf(navigatorLanguages[i]) !== -1) {
-          language = navigatorLanguages[i];
-          break;
+          language = navigatorLanguages[i]
+          break
         }
       }
 
@@ -263,7 +262,7 @@
         language: language,
         navigatorLanguage: navigatorLanguage,
         navigatorLanguages: navigatorLanguages,
-      };
+      }
     }
-  };
+  }
 </script>
