@@ -1,5 +1,8 @@
 # UdeS.LanguageMixin
+
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/UdeSElements/udes-language-mixin)
+![Polymer 2 supported](https://img.shields.io/badge/Polymer%202-supported-blue.svg)
+[![Build status](https://travis-ci.org/UdeSElements/udes-language-mixin.svg?branch=master)](https://travis-ci.org/UdeSElements/udes-language-mixin)
 
 A simple mixin to be aware of the current language application.
 
