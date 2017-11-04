@@ -1,5 +1,5 @@
 module.exports = {
-  "extends": [
-    "udes"
+  extends: [
+    "eslint-config-udes"
   ]
 }
