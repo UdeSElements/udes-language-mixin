@@ -14,7 +14,7 @@
     "webcomponents"
   ],
   "devDependencies": {
-    "eslint-config-udes": "^0.1.5",
+    "eslint-config-udes": "^0.1.6",
     "pre-commit": "^1.2.2"
   },
   "scripts": {
