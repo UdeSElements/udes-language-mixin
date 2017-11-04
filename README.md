@@ -54,6 +54,6 @@ UdeS.Language = {
   };
 ```
 
-## Localized files with UdeS.LocalizeMixin
+## Localized files with Sherby.LocalizeMixin
 If you want also to load some localized files, you should take a look on 
-`UdeS.LocalizeMixin` instead (not published yet).
+[`Sherby.LocalizeMixin`](https://www.webcomponents.org/element/SherbyElements/sherby-localize) instead.
