@@ -5,16 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-<<<<<<< HEAD
 ## [3.0.0-rc.1] - 2018-05-18
 - The `lang` attribute is now updated instead of the `language` property.
 - The default language is now `en`.
 - First version of UdeS.LanguageMixin with Polymer 3.
-=======
-## [2.2.3] - 2017-11-06
-### Added
-- Add Travis configuration file.
->>>>>>> source/master
 
 ## [2.2.2] - 2017-10-18
 ### Added
