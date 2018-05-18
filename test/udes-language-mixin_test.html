@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+  <title>UdeSLanguageMixin test</title>
+
+  <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+  <script src="../node_modules/wct-browser-legacy/browser.js"></script>
+
+  <script type="module" src="udes-language-mixin-test-element.js"></script>
+</head>
+
+<body>
+  <test-fixture id="basic">
+    <template>
+      <udes-language-mixin-test-element></udes-language-mixin-test-element>
+    </template>
+  </test-fixture>
+
+  <script type="module">
+    suite('UdeSLanguageMixin', () => {
+      let element
+
+      setup(() => {
+        element = fixture('basic')
+      })
+
+      suite('updateLanguage', () => {
+        test('should update the global `UdeS.Language.lang` variable', () => {
+          const language = 'en-US'
+          element.updateLanguage(language)
+          assert.strictEqual(language, UdeS.Language.lang)
+        })
+
+        test('should update his `lang` property', () => {
+          const language = 'en-US'
+          element.updateLanguage(language)
+          assert.strictEqual(language, element.lang)
+        })
+      })
+
+      suite('_updateLangAttributeOfHtml', () => {
+        test('should update the `lang` attribute of the html element', () => {
+          const language = 'en-US'
+          const expectedLang = 'en'
+          const html = document.getElementsByTagName('html')[0]
+
+          element._updateLangAttributeOfHtml(language)
+          assert.strictEqual(html.lang, expectedLang)
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>
