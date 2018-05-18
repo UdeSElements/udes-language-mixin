@@ -1,0 +1,27 @@
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../udes-language-mixin.html">
+
+<script>
+  /**
+   * @polymer
+   * @customElement
+   * @memberOf UdeS
+   * @extends {Polymer.Element}
+   * @appliesMixin UdeS.LanguageMixin
+   */
+  class UdeSLanguageMixinTestElement
+    extends UdeS.LanguageMixin(Polymer.Element) {
+    /**
+     * Return the HTML tag.
+     * @static
+     * @return {String} HTML tag.
+     */
+    static get is () {
+      return 'udes-language-mixin-test-element'
+    }
+  }
+
+  customElements.define(
+    UdeSLanguageMixinTestElement.is, UdeSLanguageMixinTestElement
+  )
+</script>

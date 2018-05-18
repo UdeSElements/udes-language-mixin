@@ -1,4 +1,5 @@
 module.exports = {
+<<<<<<< HEAD
   // Extends the UdeS ESLint config
   extends: 'eslint-config-udes/polymer-2-element',
   
@@ -9,3 +10,9 @@ module.exports = {
   // Limit ESLint to a specific project
   root: true,
 };
+=======
+  extends: [
+    "eslint-config-udes"
+  ]
+}
+>>>>>>> source/master

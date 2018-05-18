@@ -9,14 +9,23 @@ addons:
     packages:
       - google-chrome-stable
 node_js:
+<<<<<<< HEAD
   - "9"
   - "8"
+=======
+  - "node"
+  - "6"
+>>>>>>> source/master
 cache:
   directories:
     - node_modules
 install:
   - npm install -g polymer-cli
   - npm install
+<<<<<<< HEAD
+=======
+  - polymer install
+>>>>>>> source/master
 before_script:
   - npm run lint
 script:
