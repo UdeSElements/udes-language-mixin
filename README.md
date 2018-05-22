@@ -1,7 +1,6 @@
 # UdeS.LanguageMixin
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/UdeSElements/udes-language-mixin)
-![Polymer 2 supported](https://img.shields.io/badge/Polymer%202-supported-blue.svg)
 [![Build status](https://travis-ci.org/UdeSElements/udes-language-mixin.svg?branch=master)](https://travis-ci.org/UdeSElements/udes-language-mixin)
 
 A simple mixin to be aware of the current language application.
@@ -39,19 +38,21 @@ The mixin also provide some read-only properties to your component:
 <udes-language-demo></udes-language-demo>
 ```
 
-## Usage
-As the primary language at our organisation, `Université de Sherbrooke`, is 
-French, you may want to change the `defaultLanguage` and the 
-`supportedLanguages` properties.
+## Installation
+```bash
+npm install @udeselements/udes-language-mixin
+```
 
-To do so, add the following code inside your `index.html` BEFORE you import any
+## Usage
+To set the default language and the supported languages of your site, 
+add the following code inside your `index.html` BEFORE you import any
 HTML component using this mixin.
 
 ```javascript
-UdeS.Language = {
-    defaultLanguage: 'en',
-    supportedLanguages: ['en', 'fr'],
-  };
+window.UdeS.Language = {
+  defaultLanguage: 'en',
+  supportedLanguages: ['en', 'fr'],
+};
 ```
 
 ## Localized files with Sherby.LocalizeMixin
