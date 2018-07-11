@@ -158,9 +158,11 @@ export const UdeSLanguageMixin = superClass => class extends superClass {
     this._updateLangAttributeOfHtml(language);
 
     // Notify all observers
-    UdeS.Language._observers.forEach((element) => {
-      element.setProperties({ lang: language }, true);
-    });
+    if (UdeS.Language._observers) {
+      UdeS.Language._observers.forEach((element) => {
+        element.setProperties({ lang: language }, true);
+      });
+    }
   }
 
   /**
@@ -205,7 +207,7 @@ export const UdeSLanguageMixin = superClass => class extends superClass {
     );
 
     // Update the global variables
-    UdeS.Language.lang = globalLanguages.language;
+    UdeS.Language.lang = UdeS.Language.lang || globalLanguages.language;
     UdeS.Language.navigatorLanguage = globalLanguages.navigatorLanguage;
     UdeS.Language.navigatorLanguages = globalLanguages.navigatorLanguages;
 
